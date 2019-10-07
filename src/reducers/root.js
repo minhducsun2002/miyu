@@ -14,7 +14,7 @@ const initialState = {
             end: new Date()
         },
         problems: [],
-        ext: ['null'],
+        ext: [null],
         mode: 'OI'
     }
 }
