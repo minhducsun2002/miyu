@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Navbar, Alignment } from '@blueprintjs/core';
 
 import Clock from './clock/clock';
+import Login from './login/login';
 
 class Shell extends React.PureComponent {
     render() {
@@ -13,7 +14,11 @@ class Shell extends React.PureComponent {
                 <Navbar.Group align={Alignment.LEFT}>
                     <Navbar.Heading>{contestName}</Navbar.Heading>
                     <Navbar.Divider />
+                </Navbar.Group>
+                <Navbar.Group align={Alignment.RIGHT}>
                     <Clock />
+                    &nbsp;
+                    <Login />
                 </Navbar.Group>
             </Navbar>
         )
