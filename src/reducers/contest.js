@@ -11,4 +11,12 @@ const updateContestMetadata = (state = initialState, action) => {
     }
 }
 
-export { updateContestMetadata };
+const updateUserState = (state = initialState, { user, type }) => {
+    switch (type) {
+        case Contest.UPDATE_USER:
+            return Object.assign({}, state, { user })
+        default: return state
+    }
+}
+
+export { updateContestMetadata, updateUserState };

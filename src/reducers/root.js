@@ -1,4 +1,4 @@
-import { updateContestMetadata } from './contest';
+import { updateContestMetadata, updateUserState } from './contest';
 
 const initialState = {
     user: {
@@ -22,6 +22,6 @@ const initialState = {
 export { initialState };
 export default (state = initialState, action) => {
     // merging reducers manually
-    const reducers = [updateContestMetadata];
+    const reducers = [updateContestMetadata, updateUserState];
     return reducers.reduce((state, nextReducers) => nextReducers(state, action), state);
 }

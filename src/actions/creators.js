@@ -1,11 +1,7 @@
 import { Contest } from './constants';
 
-function updateContest(contestMetadata) {
-    return {
-        type: Contest.UPDATE_CONTEST,
-        contestMetadata
-    }
-}
+const updateContest = (contestMetadata) => ({ type: Contest.UPDATE_CONTEST, contestMetadata })
+const updateUserState = (user) => ({ type: Contest.UPDATE_USER, user })
 
 
-export { updateContest }
+export { updateContest, updateUserState }

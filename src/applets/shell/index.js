@@ -8,7 +8,7 @@ import Login from './login/login';
 
 class Shell extends React.PureComponent {
     render() {
-        const { contestName } = this.props;
+        const { contestName, auth } = this.props;
         return (
             <Navbar>
                 <Navbar.Group align={Alignment.LEFT}>
@@ -18,7 +18,7 @@ class Shell extends React.PureComponent {
                 <Navbar.Group align={Alignment.RIGHT}>
                     <Clock />
                     &nbsp;
-                    <Login />
+                    {auth && <Login />}
                 </Navbar.Group>
             </Navbar>
         )
@@ -33,6 +33,6 @@ class Shell extends React.PureComponent {
     }
 }
 
-const mapStateToProps = (state, props) => Object.assign({}, { contestName : state.contest.name }, props)
+const mapStateToProps = (state, props) => Object.assign({}, { contestName : state.contest.name, auth: !state.user.loggedIn }, props)
 
 export default connect(mapStateToProps)(Shell);
