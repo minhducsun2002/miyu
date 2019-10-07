@@ -15,17 +15,21 @@ class Login extends React.PureComponent {
 
     login = () => {
         const { setUserState } = this.props;
+        // block all activity during login
         this.setState({ trying: true });
         const { username, password } = this.state;
         login(username, password)
             .then(ok => {
                 if (!ok) throw Error(`Invalid credentials, login failed.`)
+                // load session if success
                 else return session()
             })
             .then((userState) => setUserState(userState))
             .catch(err => this.setState({ failed: err.message }))
             .finally(() => this.setState({ trying: false }))
     }
+
+    resolveEnterKey = ({ keyCode }) => keyCode === 13 && this.login();
 
     render() {
         const { username, password, showPassword, trying, failed } = this.state
@@ -39,7 +43,7 @@ class Login extends React.PureComponent {
             // first element is target,
             // second element is content
             <Popover>
-                <Button large rightIcon="key" intent={Intent.SUCCESS}>
+                <Button large rightIcon="log-in" intent={Intent.SUCCESS}>
                     Log in
                 </Button>
                 <div style={{ margin: 10, width: '30vw' }}>
@@ -57,7 +61,8 @@ class Login extends React.PureComponent {
                         leftIcon="user"
                         fill
                         value={username}
-                        onChange={({ target: { value } }) => this.setState({ username : value })} />
+                        onChange={({ target: { value } }) => this.setState({ username : value })}
+                        onKeyDown={this.resolveEnterKey} />
                     <InputGroup
                         disabled={trying}
                         round
@@ -67,10 +72,11 @@ class Login extends React.PureComponent {
                         value={password}
                         type={showPassword ? "text" : "password"}
                         onChange={({ target: { value } }) => this.setState({ password : value })}
-                        rightElement={showPasswordButton} />
+                        rightElement={showPasswordButton}
+                        onKeyDown={this.resolveEnterKey} />
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
                         <Button
-                            loading={trying}
+                            disabled={trying}
                             intent={Intent.DANGER}
                             onClick={() => this.setState({ username: '', password: '' })}
                             style={{ marginRight: 10 }}>
