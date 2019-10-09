@@ -1,0 +1,9 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.code-text {
+    font-family: 'Roboto Mono', monospace;
+    color: #e60d0d;
+}
