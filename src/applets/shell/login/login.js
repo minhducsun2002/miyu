@@ -24,7 +24,7 @@ class Login extends React.PureComponent {
                 // load session if success
                 else return session()
             })
-            .then((userState) => setUserState(userState))
+            .then(setUserState)
             .catch(err => this.setState({ failed: err.message }))
             .finally(() => this.setState({ trying: false }))
     }
@@ -51,7 +51,7 @@ class Login extends React.PureComponent {
                         icon={null}
                         intent={failed ? Intent.DANGER: Intent.PRIMARY}
                         style={{ marginBottom: 13 }}>
-                        Log in to submit solutions.
+                        {(typeof failed === 'string' && failed) || 'Log in to submit solutions.'}
                     </Callout>
                     <InputGroup
                         disabled={trying}
