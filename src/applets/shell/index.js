@@ -5,6 +5,7 @@ import { Navbar, Alignment } from '@blueprintjs/core';
 
 import Clock from './clock/clock';
 import Login from './login/login';
+import UserSetting from './userSetting/user';
 
 class Shell extends React.PureComponent {
     render() {
@@ -18,7 +19,7 @@ class Shell extends React.PureComponent {
                 <Navbar.Group align={Alignment.RIGHT}>
                     <Clock />
                     &nbsp;
-                    {auth && <Login />}
+                    {auth ? <Login /> : <UserSetting />}
                 </Navbar.Group>
             </Navbar>
         )

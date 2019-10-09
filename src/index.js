@@ -4,7 +4,9 @@ import { Provider, connect } from 'react-redux';
 
 import './index.css';
 import store from './store/index';
-import { updateContest } from './actions/creators';
+import { updateContest, updateUserState } from './actions/creators';
+
+import session from './applets/shell/login/api-session';
 
 import Shell from './applets/shell/index';
 
@@ -13,6 +15,7 @@ require('@blueprintjs/icons/lib/css/blueprint-icons.css');
 
 class Miyu extends React.PureComponent {
     componentDidMount() {
+        const { updateUser, updateContestMetadata } = this.props;
         fetch('/api/info')
             .then(res => res.json())
             .then(({ name, startTime, endTime, probList, allowedCodeExt, mode }) => ({
@@ -25,7 +28,8 @@ class Miyu extends React.PureComponent {
                 ext : allowedCodeExt,
                 mode : mode
             }))
-            .then(this.props.updateContestMetadata)
+            .then(updateContestMetadata);
+        session().then(updateUser);
     }
     render() {
         return (
@@ -37,7 +41,8 @@ class Miyu extends React.PureComponent {
 Miyu = connect(
     (state, props) => Object.assign({}, state, props),
     dispatch => ({
-        updateContestMetadata: meta => dispatch(updateContest(meta))
+        updateContestMetadata: meta => dispatch(updateContest(meta)),
+        updateUser: user => dispatch(updateUserState(user))
     })
 )(Miyu)
 
