@@ -8,6 +8,8 @@ import Clock from './clock/clock';
 import Login from './login/login';
 import UserSetting from './userSetting/user';
 
+import ScoreboardRoute from '../scoreboard/route';
+
 class Shell extends React.PureComponent {
     render() {
         const { contestName, auth, location } = this.props;
@@ -19,8 +21,8 @@ class Shell extends React.PureComponent {
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.LEFT}>
                     <Tabs selectedTabId={location.pathname}>
-                        <Tab id="/scoreboard"
-                            title={<Link to="/scoreboard" replace>Scoreboard</Link>} />
+                        <Tab id={ScoreboardRoute}
+                            title={<Link to={ScoreboardRoute} replace>Scoreboard</Link>} />
                     </Tabs>
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>
