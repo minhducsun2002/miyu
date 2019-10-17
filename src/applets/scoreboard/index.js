@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import scores from './api-scores';
-import { Card, Elevation, Button, Navbar, ButtonGroup } from '@blueprintjs/core'
+import { Callout, Elevation, Button, Navbar, ButtonGroup, Intent } from '@blueprintjs/core'
 
 import ScoreboardRenderer from './render';
 
@@ -46,24 +46,31 @@ class Scoreboard extends React.PureComponent {
 
     render() {
         const { problems, mode } = this.props;
-        const { result, lastUpdated, autoUpdateEnabled } = this.state;
+        const { result, lastUpdated, autoUpdateEnabled, loading } = this.state;
 
         // rendering controls here
         const controls = (
-            <Card>
+            <Callout>
                 Last updated : &nbsp;
                 {lastUpdated ? <span className="code-text">{lastUpdated.toString()}</span> : '(never updated)'}
                 <div align="right">
                     <ButtonGroup>
-                        <Button onClick={this.toggleAutoUpdate}>
-                            Update {autoUpdateEnabled ? 'enabled' : 'disabled'}
+                        <Button
+                            icon={autoUpdateEnabled ? "automatic-updates" : null}
+                            intent={autoUpdateEnabled ? Intent.SUCCESS : Intent.DANGER}
+                            onClick={this.toggleAutoUpdate}>
+                            Automatic update {autoUpdateEnabled ? 'enabled' : 'disabled'}
                         </Button>
-                        <Button onClick={this.triggerUpdate}>
+                        <Button
+                            loading={loading}
+                            icon="refresh"
+                            intent={Intent.PRIMARY}
+                            onClick={this.triggerUpdate}>
                             Update
                         </Button>
                     </ButtonGroup>
                 </div>
-            </Card>
+            </Callout>
         )
 
 
