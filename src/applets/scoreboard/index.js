@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import scores from './api-scores';
-import { Callout, Elevation, Button, Navbar, ButtonGroup, Intent } from '@blueprintjs/core'
+import { Callout, Elevation, Button, Navbar, ButtonGroup, Slider, Intent, Popover } from '@blueprintjs/core'
 
+import { MIN_INTERVAL, MAX_INTERVAL, STEP_INTERVAL } from './constants';
 import ScoreboardRenderer from './render';
+
+import './index.css';
 
 class Scoreboard extends React.PureComponent {
     constructor(props) {
@@ -12,8 +15,11 @@ class Scoreboard extends React.PureComponent {
             result: [],
             lastUpdated: null,
             loading: false,
-            autoUpdateEnabled: true,    // toggling automatic update
-            updateInterval: 1000  // miliseconds
+            autoUpdateEnabled: false,
+            // by default, disable automatic updates
+            updateInterval: 15000
+            // 15 seconds by default
+            // respect the MIN/MAX_INTERVAL above
         }
     }
 
@@ -44,9 +50,40 @@ class Scoreboard extends React.PureComponent {
             this.updateInterval = setInterval(this.triggerUpdate, this.state.updateInterval)
     }
 
+    setUpdateInterval_seconds = (value) => this.setState({ updateInterval: value * 1000 })
+
     render() {
+
         const { problems, mode } = this.props;
-        const { result, lastUpdated, autoUpdateEnabled, loading } = this.state;
+        const { result, lastUpdated, autoUpdateEnabled, loading, updateInterval } = this.state;
+
+        const updateInterval_seconds = Math.floor(updateInterval / 1000);
+        // rendering interval change controls here
+        const intervalSwitcher = (
+            // first element is target,
+            // second element is content
+
+            <Popover position="bottom" disabled={!autoUpdateEnabled}>
+                {/*
+                  * disable interval adjusting if disabled
+                  * position="bottom" to prevent overlapping with clock
+                  */}
+                <Button disabled={!autoUpdateEnabled} icon='time' rightIcon="chevron-down">
+                    Update every : {updateInterval_seconds} seconds
+                </Button>
+                <div className="scoreboard-updateInterval-slider-container">
+                    <Slider
+                        min={Math.floor(MIN_INTERVAL / 1000)}
+                        max={Math.floor(MAX_INTERVAL / 1000)}
+                        stepSize={1}
+                        // only display start & end labels
+                        labelStepSize={Math.floor((MAX_INTERVAL - MIN_INTERVAL) / 1000)}
+                        onChange={this.setUpdateInterval_seconds}
+                        value={updateInterval_seconds}
+                />
+                </div>
+            </Popover>
+        )
 
         // rendering controls here
         const controls = (
@@ -55,6 +92,7 @@ class Scoreboard extends React.PureComponent {
                 {lastUpdated ? <span className="code-text">{lastUpdated.toString()}</span> : '(never updated)'}
                 <div align="right">
                     <ButtonGroup>
+                        {intervalSwitcher}
                         <Button
                             icon={autoUpdateEnabled ? "automatic-updates" : null}
                             intent={autoUpdateEnabled ? Intent.SUCCESS : Intent.DANGER}
