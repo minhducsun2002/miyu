@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider, connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './index.css';
 import store from './store/index';
@@ -9,6 +10,7 @@ import { updateContest, updateUserState } from './actions/creators';
 import session from './applets/shell/login/api-session';
 
 import Shell from './applets/shell/index';
+import Scoreboard from './applets/scoreboard/index';
 
 require('@blueprintjs/core/lib/css/blueprint.css');
 require('@blueprintjs/icons/lib/css/blueprint-icons.css');
@@ -33,7 +35,10 @@ class Miyu extends React.PureComponent {
     }
     render() {
         return (
-            <Shell />
+            <Router>
+                <Shell />
+                <Route path="/scoreboard" component={Scoreboard} />
+            </Router>
         )
     }
 }
