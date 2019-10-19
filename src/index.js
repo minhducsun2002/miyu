@@ -36,7 +36,9 @@ class Miyu extends React.PureComponent {
     render() {
         return (
             <Router>
-                <Shell />
+                <header className="header-navbar">
+                    <Shell />
+                </header>
                 <Route path="/scoreboard" component={Scoreboard} />
             </Router>
         )
