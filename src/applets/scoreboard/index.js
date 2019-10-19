@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import scores from './api-scores';
-import { Callout, Elevation, Button, Navbar, ButtonGroup, Slider, Intent, Popover } from '@blueprintjs/core'
+import { Callout, Button, ButtonGroup, Slider, Intent, Popover } from '@blueprintjs/core'
 
 import { MIN_INTERVAL, MAX_INTERVAL, STEP_INTERVAL } from './constants';
 import ScoreboardRenderer from './render';
@@ -78,7 +78,7 @@ class Scoreboard extends React.PureComponent {
                     <Slider
                         min={Math.floor(MIN_INTERVAL / 1000)}
                         max={Math.floor(MAX_INTERVAL / 1000)}
-                        stepSize={1}
+                        stepSize={Math.floor(STEP_INTERVAL / 1000)}
                         // only display start & end labels
                         labelStepSize={Math.floor((MAX_INTERVAL - MIN_INTERVAL) / 1000)}
                         onChange={this.setUpdateInterval_seconds}
