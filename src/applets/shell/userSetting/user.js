@@ -8,6 +8,8 @@ import Dialog from './dialog/dialog';
 import logout from './api-logout';
 import session from '../login/api-session';
 
+import './user.css';
+
 class UserSetting extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ class UserSetting extends React.PureComponent {
                     intent={isAdmin ? Intent.SUCCESS : Intent.PRIMARY}>
                     {username}
                 </Button>
-                <div style={{ margin: 5 }}>
+                <div className="userinfo-container">
                     <Callout
                         intent={isAdmin ? Intent.SUCCESS : Intent.PRIMARY}
                         icon={isAdmin ? "endorsed" : "user"}>
