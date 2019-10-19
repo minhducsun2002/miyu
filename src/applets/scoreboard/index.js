@@ -50,6 +50,9 @@ class Scoreboard extends React.PureComponent {
             this.updateInterval = setInterval(this.triggerUpdate, this.state.updateInterval)
     }
 
+    // cleanup when unmount
+    componentWillUnmount = () => clearInterval(this.updateInterval);
+
     setUpdateInterval_seconds = (value) => this.setState({ updateInterval: value * 1000 })
 
     render() {
