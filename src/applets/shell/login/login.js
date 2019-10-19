@@ -7,6 +7,8 @@ import { updateUserState } from './../../../actions/creators.js';
 import login from './api-login';
 import session from './api-session';
 
+import './login.css';
+
 class Login extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -46,7 +48,7 @@ class Login extends React.PureComponent {
                 <Button large rightIcon="log-in" intent={Intent.SUCCESS}>
                     Log in
                 </Button>
-                <div style={{ margin: 10, width: '30vw' }}>
+                <div className="login-form-container">
                     <Callout
                         icon={null}
                         intent={failed ? Intent.DANGER: Intent.PRIMARY}
