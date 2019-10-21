@@ -38,7 +38,7 @@ export default class extends React.PureComponent {
                         {ended
                             ? 'Contest ended'
                             : (started
-                                ? `Time left : ${timeAgo(start, current)} / ${timeAgo(start, end)}`
+                                ? `Time left : ${timeAgo(current, end)} / ${timeAgo(start, end)}`
                                 : `Before contest : ${timeAgo(current, start)}`)}
                     </Callout>
                 </Tooltip>
