@@ -23,6 +23,8 @@ class Submission extends React.PureComponent {
         const languageTooltipCard = <>Source file extension : <span className="code-text">.{ext}</span></>
         // tooltip displayed when hover on timestamp
         const timestampTooltipCard = <><span className="code-text">{new Date(date).toString()}</span></>
+        // tooltip displayed when hover on problem code
+        const problemTooltipCard = <>Submitted to problem <span className="code-text">{prob_id}</span></>
 
         // verdict tags
         const verdicts = tests
@@ -56,10 +58,14 @@ class Submission extends React.PureComponent {
                     {verdicts}
                 </div>
                 <br />
-                <Tag large icon="application" minimal>{prob_id}</Tag>
-                &nbsp;
                 <Popover>
                     {/* bottom position to prevent overlaps with navbar at top */}
+                    <Tooltip content={problemTooltipCard} position="bottom">
+                        <Tag large icon="application" minimal>{prob_id}</Tag>
+                    </Tooltip>
+                </Popover>
+                &nbsp;
+                <Popover>
                     <Tooltip content={languageTooltipCard} position="bottom">
                         <Tag large icon="code" minimal>{language[ext]}</Tag>
                     </Tooltip>
