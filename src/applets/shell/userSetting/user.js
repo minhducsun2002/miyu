@@ -45,9 +45,9 @@ class UserSetting extends React.PureComponent {
                     <Callout
                         intent={isAdmin ? Intent.SUCCESS : Intent.PRIMARY}
                         icon={isAdmin ? "endorsed" : "user"}>
-                        Username : <span className="username-user-setting code-text">{username}</span>
+                        Username : <span className="username-user-setting code-text text-red">{username}</span>
                         <br />
-                        Internal ID : <span className="userid-user-setting code-text">{id}</span>
+                        Internal ID : <span className="userid-user-setting code-text text-red">{id}</span>
                     </Callout>
                     <ButtonGroup fill>
                         <Button

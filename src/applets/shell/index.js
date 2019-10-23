@@ -9,6 +9,7 @@ import Login from './login/login';
 import UserSetting from './userSetting/user';
 
 import ScoreboardRoute from '../scoreboard/route';
+import SubmissionsRoute from '../submissions/route';
 
 class Shell extends React.PureComponent {
     render() {
@@ -23,6 +24,8 @@ class Shell extends React.PureComponent {
                     <Tabs selectedTabId={location.pathname}>
                         <Tab id={ScoreboardRoute}
                             title={<Link to={ScoreboardRoute} replace>Scoreboard</Link>} />
+                        <Tab id={SubmissionsRoute}
+                            title={<Link to={SubmissionsRoute} replace>Submissions</Link>} />
                     </Tabs>
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>

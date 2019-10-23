@@ -1,0 +1,27 @@
+.sub-card-positive {
+    background-color: rgba(0,212,11,.29) !important;
+}
+
+.verdict-tag-ac {
+    background-color: green !important;
+}
+
+.verdict-tag-wa {
+    background-color: red !important;
+}
+
+.verdict-tag-ce {
+    background-color: #632920 !important;
+}
+
+.verdict-tag-rte {
+    background-color: #d500f9 !important;
+}
+
+.verdict-tag-tle {
+    background-color: #ff3d00 !important;
+}
+
+.verdict-tag-pending {
+    background-color: blue !important;
+}
