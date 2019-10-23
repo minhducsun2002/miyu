@@ -13,7 +13,8 @@ export default class extends React.PureComponent {
             lastUpdated: null,
             // server values
             size: 20,
-            page: 0,
+            page: -1,
+            // initially no load
             count: 0,
             updating: false
         }
@@ -22,7 +23,7 @@ export default class extends React.PureComponent {
     update = () => {
         this.setState({ updating: true });
         const { size, page, count, result } = this.state;
-        subs(size, page + 1, count).then(
+        subs(count, page + 1, size).then(
             ({ data, page, size, count }) => this.setState({
                  result: result.concat(data),
                  lastUpdated: new Date(),
