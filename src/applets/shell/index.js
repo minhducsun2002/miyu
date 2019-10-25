@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Navbar, Alignment, Tabs, Tab } from '@blueprintjs/core';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, matchPath } from 'react-router-dom';
 
 import Clock from './clock/clock';
 import Login from './login/login';
@@ -14,6 +14,13 @@ import SubmissionsRoute from '../submissions/route';
 class Shell extends React.PureComponent {
     render() {
         const { contestName, auth, location } = this.props;
+        // check if path matches
+        const match = [ScoreboardRoute, SubmissionsRoute]
+            .find(route => matchPath(location.pathname, {
+                path: route,
+                exact: false
+            }))
+
         return (
             <Navbar>
                 <Navbar.Group align={Alignment.LEFT}>
@@ -21,7 +28,7 @@ class Shell extends React.PureComponent {
                     <Navbar.Divider />
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.LEFT}>
-                    <Tabs selectedTabId={location.pathname}>
+                    <Tabs selectedTabId={match}>
                         <Tab id={ScoreboardRoute}
                             title={<Link to={ScoreboardRoute} replace>Scoreboard</Link>} />
                         <Tab id={SubmissionsRoute}

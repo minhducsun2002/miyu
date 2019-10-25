@@ -1,11 +1,16 @@
 import React from 'react';
 import InfiniteScroller from 'react-infinite';
 
+import { Route } from 'react-router-dom';
+
 import subs from './api-subs';
+import SubDetail from './details/index';
 import SubCard from './card/index';
 import Loading from './loading';
 
-export default class extends React.PureComponent {
+import SubmissionBaseRoute from './route';
+
+class SubmissionsListing extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,3 +59,12 @@ export default class extends React.PureComponent {
         )
     }
 }
+
+const Submissions = () => (
+    <>
+        <Route path={SubmissionBaseRoute} exact component={SubmissionsListing} />
+        <Route path={SubmissionBaseRoute + '/:id'} component={SubDetail} />
+    </>
+)
+
+export default Submissions
