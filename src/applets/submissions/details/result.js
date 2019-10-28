@@ -1,7 +1,7 @@
 import React from 'react';
 import { HTMLTable } from '@blueprintjs/core';
 
-import { friendlyVerdict, friendlyIcon } from '../../../lib/verdict-parser';
+import { friendlyVerdict } from '../../../lib/verdict-parser';
 
 // render tests
 export default ({ tests }) => (
@@ -14,8 +14,8 @@ export default ({ tests }) => (
             </tr>
         </thead>
         <tbody>
-            {tests.map(({ score, time, verdict }) => (
-                <tr>
+            {tests.map(({ score, time, verdict }, index) => (
+                <tr key={`${score}_${verdict}_${time}_${index}`}>
                     <td>{friendlyVerdict(verdict)}</td>
                     <td style={{ textAlign: 'right' }}>{time}s</td>
                     <td style={{ textAlign: 'right' }}>{score}</td>

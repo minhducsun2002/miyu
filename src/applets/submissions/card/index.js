@@ -5,7 +5,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 import VerdictTags from './verdict-tag';
 
-import SubmissionBaseRoute from '../route';
 import toTime from '../../../lib/acm-timeparser';
 import { friendlyVerdict, friendlyIcon, isPositive } from '../../../lib/verdict-parser';
 

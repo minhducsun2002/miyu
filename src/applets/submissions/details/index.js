@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, H4, H3, Tag, Tabs, Tab } from '@blueprintjs/core';
+import { Card, H4, Tag, Tabs, Tab } from '@blueprintjs/core';
 import { connect } from 'react-redux';
 
 import { friendlyVerdict, friendlyIcon } from '../../../lib/verdict-parser';
