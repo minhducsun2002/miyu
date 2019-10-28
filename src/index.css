@@ -5,6 +5,9 @@ html, body {
 
 .code-text {
     font-family: 'Roboto Mono', monospace;
+}
+
+.text-red {
     color: #e60d0d;
 }
 

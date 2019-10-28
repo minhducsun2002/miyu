@@ -9,8 +9,14 @@ import { updateContest, updateUserState } from './actions/creators';
 
 import session from './applets/shell/login/api-session';
 
+// importing components
 import Shell from './applets/shell/index';
 import Scoreboard from './applets/scoreboard/index';
+import Submissions from './applets/submissions/index';
+
+// importing routes
+import ScoreboardRoute from './applets/scoreboard/route';
+import SubmissionsRoute from './applets/submissions/route';
 
 require('@blueprintjs/core/lib/css/blueprint.css');
 require('@blueprintjs/icons/lib/css/blueprint-icons.css');
@@ -39,7 +45,8 @@ class Miyu extends React.PureComponent {
                 <header className="header-navbar">
                     <Shell />
                 </header>
-                <Route path="/scoreboard" component={Scoreboard} />
+                <Route path={ScoreboardRoute} component={Scoreboard} />
+                <Route path={SubmissionsRoute} component={Submissions} />
             </Router>
         )
     }

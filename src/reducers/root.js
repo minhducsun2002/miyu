@@ -1,4 +1,5 @@
 import { updateContestMetadata, updateUserState } from './contest';
+import language from '../lib/language.json';
 
 const initialState = {
     user: {
@@ -16,7 +17,9 @@ const initialState = {
         problems: [],
         ext: [null],
         mode: 'OI'
-    }
+    },
+    presets: { language }
+    // overrideable language
 }
 
 export { initialState };

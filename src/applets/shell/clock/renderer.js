@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Callout, Popover, Tooltip } from '@blueprintjs/core';
 
-import timeAgo from './diff';
+import timeAgo from '../../../lib/clock-diff';
 
 const Intent = {
     PRIMARY : 'primary',
