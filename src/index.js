@@ -13,10 +13,12 @@ import session from './applets/shell/login/api-session';
 import Shell from './applets/shell/index';
 import Scoreboard from './applets/scoreboard/index';
 import Submissions from './applets/submissions/index';
+import Editor from './applets/editor/index';
 
 // importing routes
 import ScoreboardRoute from './applets/scoreboard/route';
 import SubmissionsRoute from './applets/submissions/route';
+import EditorRoute from './applets/editor/route';
 
 require('@blueprintjs/core/lib/css/blueprint.css');
 require('@blueprintjs/icons/lib/css/blueprint-icons.css');
@@ -47,6 +49,7 @@ class Miyu extends React.PureComponent {
                 </header>
                 <Route path={ScoreboardRoute} component={Scoreboard} />
                 <Route path={SubmissionsRoute} component={Submissions} />
+                <Route path={EditorRoute} component={Editor} />
             </Router>
         )
     }
