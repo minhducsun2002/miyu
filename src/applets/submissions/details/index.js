@@ -47,8 +47,13 @@ class SubmissionDetails extends React.PureComponent {
         ext = ext.toLowerCase().substr(1);
 
         const OIPanel = (
-            <Tabs defaultSelectedTabId="tests" vertical renderActiveTabPanelOnly id="submission_oi_panel">
+            <Tabs
+                defaultSelectedTabId={tests ? "tests" : (code ? 'code' : '')}
+                vertical
+                renderActiveTabPanelOnly
+                id="submission_oi_panel">
                 <Tab
+                    disabled={!tests}
                     panel={<Result tests={tests} />}
                     id="tests"
                     title="Tests" />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Popover, Tooltip, Tag, H4 } from '@blueprintjs/core';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import VerdictTags from './verdict-tag';
 
@@ -13,7 +13,7 @@ import './index.css'
 
 class Submission extends React.PureComponent {
     render() {
-        let { date, ext, prob_id, score, status, tpen, user_id, _id, username, mode, language, tests } = this.props;
+        let { date, ext, prob_id, score, status, tpen, user_id, _id, username, mode, language, tests, location } = this.props;
         // ignore preceding dot
         ext = ext.toLowerCase().substr(1)
         // standardize verdict
@@ -89,9 +89,8 @@ class Submission extends React.PureComponent {
                     <p style={{ flexGrow: 1 }}>&nbsp;</p>
                     <Link
                         style={{ marginTop: 'auto', marginBottom: 'auto' }}
-                        to={`${SubmissionBaseRoute}/${_id}`}
-                        target="_blank">
-                        Open in new tab
+                        to={`${location.pathname}/${_id}`}>
+                        Details
                     </Link>
                 </div>
             </Card>
@@ -102,4 +101,4 @@ class Submission extends React.PureComponent {
 
 const mapStateToProps = ({ contest: { mode }, presets: { language } }, props) => Object.assign({}, { mode, language }, props);
 
-export default connect(mapStateToProps)(Submission)
+export default connect(mapStateToProps)(withRouter(Submission))

@@ -33,7 +33,10 @@ async function subsId (id) {
  */
  async function subsIdSource (id) {
      return fetch(`/api/subs/${encodeURIComponent(id)}/source`)
-         .then(res => res.text())
+         .then(res => {
+             if (!res.ok) throw new Error('Invalid response received : not a 2xx response')
+             return res.text()
+         })
  }
 
 export default subs;
