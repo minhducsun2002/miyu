@@ -1,0 +1,3 @@
+const EDITOR_TOP_PADDING = '102.5px';
+
+export { EDITOR_TOP_PADDING }
