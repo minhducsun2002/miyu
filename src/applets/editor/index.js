@@ -30,7 +30,10 @@ class Submit extends React.PureComponent {
                 <Controller
                     onProblemChange={currentProblem => this.setState({ currentProblem })}
                     onExtChange={currentExt => this.setState({ currentExt })}
-                    currentValues={{ ext: currentExt, problem: currentProblem }}/>
+                    currentValues={{ ext: currentExt, problem: currentProblem }}
+                    // no empty string submit
+                    disableSubmit={!value}
+                    getCode={() => value}/>
                 <Editor
                     ext={`${currentExt}`.substr(1).toLowerCase()}
                     value={value}

@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
+import { Button, Intent } from '@blueprintjs/core';
+
+import submit from './api-subs';
 
 // wrap
-const wrapInFlexContainer = (elements) => (
+const wrapInFlexContainer = (elements = [], elementsWithoutFlexGrow = []) => (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
         {elements.map((element, key) => <p key={`flex_element_${key}`} style={{ flexGrow: 1 }}>{element}</p>)}
+        {elementsWithoutFlexGrow.map(
+            (element, key) => <p key={`non_flex_element_${key}`}>{element}</p>
+        )}
     </div>
 )
 
-const out = ({ ext, problems, onProblemChange, onExtChange, currentValues, language }) => {
+const SubmitInvoker = (props) => <Button {...props}>Submit</Button>;
+
+const Controller = ({ ext, problems, onProblemChange, onExtChange, currentValues, language, getCode, disableSubmit }) => {
+    const [loading, setLoading] = useState(false);
+    // initially, not loading
+
+    const probToRecord = prob => ({ value: prob, label: prob });
     const extToRecord = (ext = '') => ({
         // take care of cases where `ext` is undefined or not a string
         value: ext,
@@ -19,10 +31,6 @@ const out = ({ ext, problems, onProblemChange, onExtChange, currentValues, langu
                 (<span className="code-text">{ext.toLowerCase()}</span>)
             </>
         )
-    });
-    const probToRecord = prob => ({
-        value: prob,
-        label: prob
     });
 
     return wrapInFlexContainer([
@@ -34,11 +42,23 @@ const out = ({ ext, problems, onProblemChange, onExtChange, currentValues, langu
         <Select
             options={ext.map(extToRecord)}
             onChange={({ value }) => onExtChange(value)}
-            value={extToRecord(currentValues.ext)} />
+            value={extToRecord(currentValues.ext)} />,
+    ], [
+        <SubmitInvoker
+            style={{ height: '100%' }}
+            rightIcon="small-tick"
+            intent={Intent.SUCCESS}
+            disabled={disableSubmit}
+            loading={loading}
+            onClick={() => {
+                setLoading(true);
+                submit(getCode(), `${currentValues.problem}.${currentValues.ext.substr(1).toLowerCase()}`)
+                    .then(() => setLoading(false))
+            }} />
     ])
 }
 
 const mapStateToProps = ({ contest: { ext, problems }, presets: { language } }, props) =>
     Object.assign({}, { ext, problems, language }, props)
 
-export default connect(mapStateToProps)(out)
+export default connect(mapStateToProps)(Controller)
