@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Intent } from '@blueprintjs/core';
+import { Button } from '@blueprintjs/core';
 
 // toggle light/dark
 export default ({ dark, onChangeTheme }) => (
