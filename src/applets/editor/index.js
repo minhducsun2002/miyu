@@ -10,7 +10,10 @@ class Submit extends React.PureComponent {
         this.state = {
             currentExt: props.ext[0],
             currentProblem: props.problems[0],
-            value: ''
+            value: '',
+
+            // theming
+            darkTheme: false
         }
     }
 
@@ -24,7 +27,7 @@ class Submit extends React.PureComponent {
     }
 
     render() {
-        const { currentExt, currentProblem, value } = this.state;
+        const { currentExt, currentProblem, value, darkTheme } = this.state;
         return (
             <>
                 <Controller
@@ -33,10 +36,16 @@ class Submit extends React.PureComponent {
                     currentValues={{ ext: currentExt, problem: currentProblem }}
                     // no empty string submit
                     disableSubmit={!value}
-                    getCode={() => value}/>
+                    getCode={() => value}
+                    cosmetic={{
+                        onChangeTheme : () => this.setState({ darkTheme: !darkTheme }),
+                        dark : darkTheme
+                    }}
+                    />
                 <Editor
                     ext={`${currentExt}`.substr(1).toLowerCase()}
                     value={value}
+                    theme={darkTheme ? 'dark' : 'light'}
                     onChange={(value) => { this.setState({ value }) }}/>
             </>
         )
