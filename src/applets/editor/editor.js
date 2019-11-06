@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { ControlledEditor as Editor } from '@monaco-editor/react';
 
 import { EDITOR_TOP_PADDING } from './constants';
+import Loading from './editor-loading';
 
 const out = ({
     value, onChange,
-    loadingPlaceholder = 'Preparing editor...',
+    loadingPlaceholder = <Loading />,
     theme = 'light',
     options = {},
     ext,
