@@ -1,8 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import FileDrop from 'react-file-drop';
 
 import Editor from './editor';
 import Controller from './controller';
+
+import { MAX_FILE_SIZE_LIMIT_BYTES } from './constants';
+
+let reader = new FileReader();
 
 class Submit extends React.PureComponent {
     constructor(props) {
@@ -13,7 +18,9 @@ class Submit extends React.PureComponent {
             value: '',
 
             // theming
-            darkTheme: false
+            darkTheme: false,
+            // file loading
+            loading: false
         }
     }
 
@@ -24,6 +31,17 @@ class Submit extends React.PureComponent {
                 currentExt: this.props.ext[0],
                 currentProblem: this.props.problems[0],
             })
+    }
+
+    processFile(file) {
+        if (!(file instanceof Blob) && !(file instanceof File)) return;
+        if (file.size > MAX_FILE_SIZE_LIMIT_BYTES) return;
+            // TODO: raise error explicitly
+        reader.onload = () => {
+            this.setState({ value: reader.result, loading: false })
+        };
+        this.setState({ loading: true });
+        reader.readAsText(file);
     }
 
     render() {
@@ -42,11 +60,14 @@ class Submit extends React.PureComponent {
                         dark : darkTheme
                     }}
                     />
-                <Editor
-                    ext={`${currentExt}`.substr(1).toLowerCase()}
-                    value={value}
-                    theme={darkTheme ? 'dark' : 'light'}
-                    onChange={(value) => { this.setState({ value }) }}/>
+                <FileDrop
+                    onDrop={files => this.processFile(files[0])}>
+                    <Editor
+                        ext={`${currentExt}`.substr(1).toLowerCase()}
+                        value={value}
+                        theme={darkTheme ? 'dark' : 'light'}
+                        onChange={(value) => { this.setState({ value }) }}/>
+                </FileDrop>
             </>
         )
     }
