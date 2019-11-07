@@ -22,6 +22,8 @@ class Submit extends React.PureComponent {
             // file loading
             loading: false
         }
+
+        this.catcherRef = React.createRef();
     }
 
     componentDidUpdate({ ext, problem }) {
@@ -45,9 +47,22 @@ class Submit extends React.PureComponent {
     }
 
     render() {
-        const { currentExt, currentProblem, value, darkTheme } = this.state;
+        const { currentExt, currentProblem, value, darkTheme, loading } = this.state;
+
+        // rendering invisible input
+        const upload = (
+            <input
+                type='file'
+                onChange={({ target: { files } }) => this.processFile(files[0])}
+                ref={this.catcherRef}
+                style={{ display: 'none' /* invisible */ }}
+                onClick={event => event.target.value = null}
+            />
+        )
+
         return (
             <>
+                {upload}
                 <Controller
                     onProblemChange={currentProblem => this.setState({ currentProblem })}
                     onExtChange={currentExt => this.setState({ currentExt })}
@@ -55,6 +70,8 @@ class Submit extends React.PureComponent {
                     // no empty string submit
                     disableSubmit={!value}
                     getCode={() => value}
+                    onLoadFile={() => this.catcherRef.current.click()}
+                    fileLoading={loading}
                     cosmetic={{
                         onChangeTheme : () => this.setState({ darkTheme: !darkTheme }),
                         dark : darkTheme

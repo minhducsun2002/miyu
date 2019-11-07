@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import { Button, Intent } from '@blueprintjs/core';
+import { Button, Intent, ButtonGroup } from '@blueprintjs/core';
 
 import submit from './api-subs';
 import CosmeticController from './cosmetic-controller';
@@ -30,15 +30,16 @@ const wrapInFlexContainer = (elements = [], elementsWithoutFlexGrow = []) => (
     </div>
 )
 
+// submit button
 const SubmitInvoker = (props) => <Button {...props}>Submit</Button>;
+// loading file
+const UploadButton = (props) => <Button icon="document-open" {...props}>Upload</Button>
 
 const Controller = ({
     ext, problems, currentValues,
-    onProblemChange, onExtChange,
-    language,
-    getCode,
-    disableSubmit,
-    cosmetic : { onChangeTheme = null, dark = false }
+    onProblemChange, onExtChange, onLoadFile,
+    language, getCode, disableSubmit,
+    cosmetic : { onChangeTheme = null, dark = false }, fileLoading
 }) => {
     const [loading, setLoading] = useState(false);
     // initially, not loading
@@ -69,17 +70,22 @@ const Controller = ({
         <CosmeticController
             onChangeTheme={onChangeTheme}
             dark={dark}/>,
-        <SubmitInvoker
-            style={{ height: '100%' }}
-            rightIcon="small-tick"
-            intent={Intent.SUCCESS}
-            disabled={disableSubmit}
-            loading={loading}
-            onClick={() => {
-                setLoading(true);
-                submit(getCode(), `${currentValues.problem}.${currentValues.ext.substr(1).toLowerCase()}`)
-                    .then(() => setLoading(false))
-            }} />
+        <ButtonGroup style={{ height: '100%' }}>
+            <UploadButton
+                intent={Intent.WARNING}
+                onClick={onLoadFile}
+                loading={fileLoading} /* load only one file at a time *//>
+            <SubmitInvoker
+                rightIcon="small-tick"
+                intent={Intent.SUCCESS}
+                disabled={disableSubmit}
+                loading={loading}
+                onClick={() => {
+                    setLoading(true);
+                    submit(getCode(), `${currentValues.problem}.${currentValues.ext.substr(1).toLowerCase()}`)
+                        .then(() => setLoading(false))
+                }} />
+        </ButtonGroup>
     ])
 }
 
