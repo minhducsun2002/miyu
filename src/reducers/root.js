@@ -1,6 +1,8 @@
 import { updateContestMetadata, updateUserState } from './contest';
+
 import language from '../lib/language.json';
 import MonacoLanguage from '../lib/language-monaco.json';
+import { Prism as PrismLanguage } from '../lib/code-view/index';
 
 const initialState = {
     user: {
@@ -23,6 +25,11 @@ const initialState = {
         language,
         editor : {
             monaco: MonacoLanguage
+        },
+        codeView : {
+            "react-syntax-highlighter" : {
+                prism : PrismLanguage
+            }
         }
     }
     // overrideable language
