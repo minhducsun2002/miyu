@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import FileDrop from 'react-file-drop';
+import LoadingOverlay from 'react-loading-overlay';
 
 import Editor from './editor/index';
 import Controller from './controller/index';
+import FileLoading from './file-loading';
 
 import { MAX_FILE_SIZE_LIMIT_BYTES } from './constants';
 
 let reader = new FileReader();
+const EditorLoadingOverlay = (props) => <LoadingOverlay spinner={<FileLoading />} {...props} />
 
 class Submit extends React.PureComponent {
     constructor(props) {
@@ -77,14 +80,16 @@ class Submit extends React.PureComponent {
                         dark : darkTheme
                     }}
                     />
-                <FileDrop
-                    onDrop={files => this.processFile(files[0])}>
-                    <Editor
-                        ext={`${currentExt}`.substr(1).toLowerCase()}
-                        value={value}
-                        theme={darkTheme ? 'dark' : 'light'}
-                        onChange={(value) => { this.setState({ value }) }}/>
-                </FileDrop>
+                <EditorLoadingOverlay active={loading}>
+                    <FileDrop
+                        onDrop={files => this.processFile(files[0])}>
+                        <Editor
+                            ext={`${currentExt}`.substr(1).toLowerCase()}
+                            value={value}
+                            theme={darkTheme ? 'dark' : 'light'}
+                            onChange={(value) => { this.setState({ value }) }}/>
+                    </FileDrop>
+                </EditorLoadingOverlay>
             </>
         )
     }
