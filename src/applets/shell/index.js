@@ -10,12 +10,13 @@ import UserSetting from './userSetting/user';
 
 import ScoreboardRoute from '../scoreboard/route';
 import SubmissionsRoute from '../submissions/route';
+import EditorRoute from '../editor/route';
 
 class Shell extends React.PureComponent {
     render() {
         const { contestName, auth, location } = this.props;
         // check if path matches
-        const match = [ScoreboardRoute, SubmissionsRoute]
+        const match = [ScoreboardRoute, SubmissionsRoute, EditorRoute]
             .find(route => matchPath(location.pathname, {
                 path: route,
                 exact: false
@@ -33,6 +34,8 @@ class Shell extends React.PureComponent {
                             title={<Link to={ScoreboardRoute} replace>Scoreboard</Link>} />
                         <Tab id={SubmissionsRoute}
                             title={<Link to={SubmissionsRoute} replace>Submissions</Link>} />
+                        <Tab id={EditorRoute}
+                            title={<Link to={EditorRoute} replace>Submit solution</Link>} />
                     </Tabs>
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>

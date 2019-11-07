@@ -1,5 +1,6 @@
 import { updateContestMetadata, updateUserState } from './contest';
 import language from '../lib/language.json';
+import MonacoLanguage from '../lib/language-monaco.json';
 
 const initialState = {
     user: {
@@ -15,10 +16,15 @@ const initialState = {
             end: new Date()
         },
         problems: [],
-        ext: [null],
+        ext: [],
         mode: 'OI'
     },
-    presets: { language }
+    presets: {
+        language,
+        editor : {
+            monaco: MonacoLanguage
+        }
+    }
     // overrideable language
 }
 
