@@ -59,7 +59,7 @@ class SubmissionDetails extends React.PureComponent {
                     title="Tests" />
                 <Tab
                     disabled={!code}
-                    panel={<CodeBlock code={code} />}
+                    panel={<CodeBlock code={code} ext={ext} />}
                     id="code"
                     title="Source code"/>
             </Tabs>
