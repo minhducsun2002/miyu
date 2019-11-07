@@ -31,9 +31,9 @@ const wrapInFlexContainer = (elements = [], elementsWithoutFlexGrow = []) => (
 )
 
 // submit button
-const SubmitInvoker = (props) => <Button {...props}>Submit</Button>;
+const SubmitInvoker = (props) => <Button intent={Intent.SUCCESS} rightIcon="small-tick" {...props}>Submit</Button>;
 // loading file
-const UploadButton = (props) => <Button icon="document-open" {...props}>Upload</Button>
+const UploadButton = (props) => <Button intent={Intent.WARNING} rightIcon="document-open" {...props}>Upload</Button>
 
 const Controller = ({
     ext, problems, currentValues,
@@ -72,12 +72,9 @@ const Controller = ({
             dark={dark}/>,
         <ButtonGroup style={{ height: '100%' }}>
             <UploadButton
-                intent={Intent.WARNING}
                 onClick={onLoadFile}
                 loading={fileLoading} /* load only one file at a time *//>
             <SubmitInvoker
-                rightIcon="small-tick"
-                intent={Intent.SUCCESS}
                 disabled={disableSubmit}
                 loading={loading}
                 onClick={() => {
