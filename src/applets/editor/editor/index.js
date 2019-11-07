@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ControlledEditor as Editor } from '@monaco-editor/react';
 
-import { EDITOR_TOP_PADDING } from './constants';
+import { EDITOR_TOP_PADDING } from '../constants';
 import Loading from './editor-loading';
 
 const out = ({

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FileDrop from 'react-file-drop';
 
-import Editor from './editor';
-import Controller from './controller';
+import Editor from './editor/index';
+import Controller from './controller/index';
 
 import { MAX_FILE_SIZE_LIMIT_BYTES } from './constants';
 
