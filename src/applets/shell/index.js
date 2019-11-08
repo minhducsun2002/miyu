@@ -8,6 +8,7 @@ import Clock from './clock/clock';
 import Login from './login/login';
 import UserSetting from './userSetting/user';
 
+import HomeRoute from '../home/route';
 import ScoreboardRoute from '../scoreboard/route';
 import SubmissionsRoute from '../submissions/route';
 import EditorRoute from '../editor/route';
@@ -16,11 +17,13 @@ class Shell extends React.PureComponent {
     render() {
         const { contestName, auth, location } = this.props;
         // check if path matches
-        const match = [ScoreboardRoute, SubmissionsRoute, EditorRoute]
+        let match = [ScoreboardRoute, SubmissionsRoute, EditorRoute]
             .find(route => matchPath(location.pathname, {
                 path: route,
                 exact: false
             }))
+        // specifically handle homepage
+        if (location.pathname === HomeRoute) match = HomeRoute
 
         return (
             <Navbar>
@@ -29,7 +32,13 @@ class Shell extends React.PureComponent {
                     <Navbar.Divider />
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.LEFT}>
-                    <Tabs selectedTabId={match}>
+                    <Tabs selectedTabId={match || null}>
+                        {/*
+                            If no match, HomeRoute would still be highlighted.
+                            However, passing `null` seems enough to signal that no tab is enabled.
+                            */}
+                        <Tab id={HomeRoute}
+                            title={<Link to={HomeRoute} replace>Home</Link>} />
                         <Tab id={ScoreboardRoute}
                             title={<Link to={ScoreboardRoute} replace>Scoreboard</Link>} />
                         <Tab id={SubmissionsRoute}
