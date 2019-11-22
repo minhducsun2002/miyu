@@ -39,7 +39,8 @@ const Controller = ({
     ext, problems, currentValues,
     onProblemChange, onExtChange, onLoadFile,
     language, getCode, disableSubmit,
-    cosmetic : { onChangeTheme = null, dark = false }, fileLoading
+    cosmetic : { onChangeTheme = null, dark = false }, fileLoading,
+    toaster
 }) => {
     const [loading, setLoading] = useState(false);
     // initially, not loading
@@ -80,13 +81,17 @@ const Controller = ({
                 onClick={() => {
                     setLoading(true);
                     submit(getCode(), `${currentValues.problem}.${currentValues.ext.substr(1).toLowerCase()}`)
+                        .then(({ ok, status }) => toaster.show({
+                            message: ok ? 'Successfully submitted.' : `Error submitting (${status}).`,
+                            intent: ok ? Intent.SUCCESS : Intent.DANGER
+                        }))
                         .then(() => setLoading(false))
                 }} />
         </ButtonGroup>
     ])
 }
 
-const mapStateToProps = ({ contest: { ext, problems }, presets: { language } }, props) =>
-    Object.assign({}, { ext, problems, language }, props)
+const mapStateToProps = ({ contest: { ext, problems }, presets: { language }, internal: { toaster } }, props) =>
+    Object.assign({}, { ext, problems, language, toaster }, props)
 
 export default connect(mapStateToProps)(Controller)
