@@ -16,7 +16,7 @@ class Login extends React.PureComponent {
     }
 
     login = () => {
-        const { setUserState } = this.props;
+        const { setUserState, toaster } = this.props;
         // block all activity during login
         this.setState({ trying: true });
         const { username, password } = this.state;
@@ -26,8 +26,14 @@ class Login extends React.PureComponent {
                 // load session if success
                 else return session()
             })
-            .then(setUserState)
-            .catch(err => this.setState({ failed: err.message }))
+            .then(status => {
+                setUserState(status);
+                toaster.show({
+                    message: <>Logged in as <span className="code-text">{status.username}</span></>,
+                    intent: Intent.SUCCESS
+                })
+            })
+            .catch(err => this.setState({ failed: err.message }))            
             .finally(() => this.setState({ trying: false }))
     }
 
@@ -98,8 +104,10 @@ class Login extends React.PureComponent {
     }
 }
 
+const mapStateToProps = ({ internal: { toaster } }, props) => Object.assign({}, { toaster }, props)
+
 const mapDispatchToProps = dispatch => ({
     setUserState : (userState) => dispatch(updateUserState(userState))
 })
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
