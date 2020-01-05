@@ -15,7 +15,10 @@ async function subs (count, page, size) {
 
 
     return fetch(`/api/subs?${out.toString()}`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+            return res.json()
+        })
 }
 
 /**
@@ -24,7 +27,10 @@ async function subs (count, page, size) {
  */
 async function subsId (id) {
     return fetch(`/api/subs/${encodeURIComponent(id)}`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+            return res.json()
+        })
 }
 
 /**
