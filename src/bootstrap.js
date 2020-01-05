@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Pre } from '@blueprintjs/core';
 
 import { updateContest, updateUserState, assignToaster } from './actions/creators'
 
@@ -13,13 +12,8 @@ const toaster = createToaster(); // a single toaster for the whole app
 class Bootstrapper extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            loaded: false,
-            progress: 'Initializing...'
-        }
+        this.state = { loaded: false };
     }
-
-    addProgress = _ => this.setState({ progress: this.state.progress + _ })
 
     componentDidMount() {
         const { updateContestMetadata, updateUser, setToaster } = this.props;
@@ -38,13 +32,13 @@ class Bootstrapper extends React.PureComponent {
                     mode : mode
                 }))
                 .then(updateContestMetadata)
-                .then(() => this.addProgress(`\nLoaded contest details.`)),
-            session().then(updateUser).then(() => this.addProgress(`\nLoaded user.`)),
-            new Promise(resolve => resolve(setToaster(toaster))).then(() => this.addProgress(`\nToaster instantiated.`))
+                .then(() => console.log(`Loaded contest details.`)),
+            session().then(updateUser).then(() => console.log(`Loaded user.`)),
+            new Promise(resolve => resolve(setToaster(toaster))).then(() => console.log(`Toaster instantiated.`))
         ]).then(() => setTimeout(() => this.setState({ loaded: true }), DISPLAY_DELAY))
     }
 
-    render = () => this.state.loaded ? this.props.children : <Pre>{this.state.progress}</Pre>
+    render = () => this.state.loaded ? this.props.children : 'Loading...'
 }
 
 const mapDispatchToProps = dispatch => ({
