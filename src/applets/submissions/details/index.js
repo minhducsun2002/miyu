@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, H4, Tag, Tabs, Tab } from '@blueprintjs/core';
+import { Card, H4, Tag, Tabs, Tab, Button } from '@blueprintjs/core';
 import { connect } from 'react-redux';
 
 import { friendlyVerdict, friendlyIcon } from '../../../lib/verdict-parser';
@@ -11,6 +11,7 @@ import './index.css'
 import Loading from '../loading';
 import CodeBlock from './code';
 import Result from './result';
+import Error from '../error';
 
 class SubmissionDetails extends React.PureComponent {
     constructor(props) {
@@ -18,7 +19,8 @@ class SubmissionDetails extends React.PureComponent {
         this.state = {
             code: null,
             data: null,
-            isLoading: true
+            isLoading: true,
+            err: null
         }
     }
 
@@ -31,15 +33,29 @@ class SubmissionDetails extends React.PureComponent {
 
         this.setState({ isLoading: true })
         // load sub data & sub source code simultaneously
-        Promise.allSettled([
+        Promise.all([
             sub(id).then(data => this.setState({ data })),
             subSource(id).then(code => this.setState({ code }))
-        ]).then(() => this.setState({ isLoading: false }))
+        ])
+        .catch(({ message }) => this.setState({ err: message }))
+        .finally(() => this.setState({ isLoading: false }))
     }
 
     render() {
-        const { isLoading, code } = this.state;
+        const { isLoading, code, err } = this.state;
         if (isLoading) return <Loading />
+
+        if (err) return (
+            <Error 
+                action={
+                    <Button
+                        rightIcon='refresh'
+                        onClick={this.update}>
+                        Reload
+                    </Button>
+                }
+                description={<span className="code-text">{err}</span>}/>
+        )
 
         const { match: { params: { id } }, mode, language } = this.props;
 
