@@ -12,7 +12,7 @@ html, body {
 }
 
 .header-navbar {
-    z-index: 1000; /* always on top */
+    z-index: 10; /* always on top */
     top: 0;
     left: auto;
     right: 0;

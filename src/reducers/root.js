@@ -1,4 +1,5 @@
 import { updateContestMetadata, updateUserState } from './contest';
+import { setToaster } from './internal/toaster';
 
 import language from '../lib/language.json';
 import MonacoLanguage from '../lib/language-monaco.json';
@@ -44,12 +45,16 @@ const initialState = {
                 // mapping for Prism.js version
             }
         }
+    },
+    internal: {
+        // toaster component
+        toaster: {}
     }
 }
 
 export { initialState };
 export default (state = initialState, action) => {
     // merging reducers manually
-    const reducers = [updateContestMetadata, updateUserState];
+    const reducers = [updateContestMetadata, updateUserState, setToaster];
     return reducers.reduce((state, nextReducers) => nextReducers(state, action), state);
 }
