@@ -53,6 +53,11 @@ class SubmissionsListing extends React.PureComponent {
         this.update();
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.authed !== this.props.authed)
+            this.update()
+    }
+
     render() {
         const { result, updating, err } = this.state;
         const out = result.map((sub, i) => <SubCard key={`submission_card_${i}`} {...sub} />)
@@ -85,7 +90,8 @@ class SubmissionsListing extends React.PureComponent {
     }
 }
 
-const mapStateToProps = ({ internal: { toaster },  }, props) => Object.assign({}, { toaster }, props);
+const mapStateToProps = ({ internal: { toaster }, user: { loggedIn } }, props) =>
+    Object.assign({}, { toaster, authed: loggedIn }, props);
 
 export default () => (
     <>

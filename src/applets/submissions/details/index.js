@@ -28,6 +28,11 @@ class SubmissionDetails extends React.PureComponent {
         this.update()
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.auth !== this.props.auth)
+            this.update()
+    }
+
     update = () => {
         const { match: { params: { id } } } = this.props;
 
@@ -37,6 +42,8 @@ class SubmissionDetails extends React.PureComponent {
             sub(id).then(data => this.setState({ data })),
             subSource(id).then(code => this.setState({ code }))
         ])
+        .then(() => this.setState({ err: null }))
+        // clear err if success
         .catch(({ message }) => this.setState({ err: message }))
         .finally(() => this.setState({ isLoading: false }))
     }
@@ -129,5 +136,6 @@ class SubmissionDetails extends React.PureComponent {
     }
 }
 
-const mapStateToProps = ({ contest: { mode }, presets: { language } }, props) => Object.assign({}, { mode, language }, props);
+const mapStateToProps = ({ contest: { mode }, presets: { language }, user: { loggedIn } }, props) =>
+    Object.assign({}, { mode, language, auth: loggedIn }, props);
 export default connect(mapStateToProps)(SubmissionDetails)
