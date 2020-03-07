@@ -16,7 +16,7 @@ class Submission extends React.PureComponent {
         // ignore preceding dot
         ext = ext.toLowerCase().substr(1)
         // standardize verdict
-        let _status = status; status = status.toLowerCase()
+        let _status = status; status = `${status}`.toLowerCase()
 
         // tooltip displayed when hover on username
         const userTooltipCard = <>Internal ID: <span className="code-text">{user_id}</span></>

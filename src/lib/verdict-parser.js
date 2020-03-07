@@ -14,7 +14,7 @@ const friendlyVerdict = (string) => {
 // return icons for verdicts
 
 const friendlyIcon = (string) => {
-    if (!string) return 'Pending';
+    if (!string) return 'help';
     switch (string.toUpperCase()) {
         case 'AC': return 'tick';
         case 'WA': return 'error';
