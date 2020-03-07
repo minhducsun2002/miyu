@@ -67,6 +67,7 @@ class SubmissionDetails extends React.PureComponent {
         const { match: { params: { id } }, mode, language } = this.props;
 
         let { status, score, prob_id, ext, username, date, tpen, tests } = this.state.data;
+        if (!status) status = '';
         ext = ext.toLowerCase().substr(1);
 
         const OIPanel = (
