@@ -24,3 +24,8 @@ jobs:
       run: npm run build
       env:
         CI: true
+    - name: Push to artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: miyu-${{ github.sha }}
+        path: build/
