@@ -3,7 +3,7 @@ import { setToaster } from './internal/toaster';
 
 import language from '../lib/language.json';
 import MonacoLanguage from '../lib/language-monaco.json';
-import { Prism as PrismLanguage } from '../lib/code-view/index';
+import { Prism as PrismLanguage, PrismTheme } from '../lib/code-view/';
 
 const initialState = {
     user: {
@@ -41,7 +41,10 @@ const initialState = {
         // modes mapping for rendering components to support syntax highlighting
             "react-syntax-highlighter" : {
             // language modes mapping for `react-syntax-highlighter`
-                prism : PrismLanguage
+                prism : {
+                    language: PrismLanguage,
+                    theme: PrismTheme
+                }
                 // mapping for Prism.js version
             }
         }
