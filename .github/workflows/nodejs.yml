@@ -19,9 +19,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install packages
-      run: npm install
+      run: yarn install 
     - name: Create a static build
-      run: npm run build
+      run: yarn build
       env:
         CI: true
     - name: Push to artifacts
