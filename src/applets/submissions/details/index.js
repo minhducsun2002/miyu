@@ -12,6 +12,7 @@ import Loading from '../loading';
 import CodeBlock from './code';
 import Result from './result';
 import Error from '../error';
+import Message from './message';
 
 class SubmissionDetails extends React.PureComponent {
     constructor(props) {
@@ -66,7 +67,7 @@ class SubmissionDetails extends React.PureComponent {
 
         const { match: { params: { id } }, mode, language } = this.props;
 
-        let { status, score, prob_id, ext, username, date, tpen, tests } = this.state.data;
+        let { status, score, prob_id, ext, username, date, tpen, tests, msg } = this.state.data;
         if (!status) status = '';
         ext = ext.toLowerCase().substr(1);
 
@@ -86,6 +87,10 @@ class SubmissionDetails extends React.PureComponent {
                     panel={<CodeBlock code={code} ext={ext} />}
                     id="code"
                     title="Source code"/>
+                <Tab
+                    panel={<Message text={msg} />}
+                    id="msg"
+                    title="Messages"/>
             </Tabs>
         )
 
