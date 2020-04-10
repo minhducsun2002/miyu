@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Popover, Intent, Callout } from '@blueprintjs/core
 
 import { updateUserState } from './../../../actions/creators.js';
 
-import Dialog from './dialog/dialog';
+import Settings from './settings';
 import logout from './api-logout';
 import session from '../login/api-session';
 
@@ -64,7 +64,7 @@ class UserSetting extends React.PureComponent {
                             Log out
                         </Button>
                     </ButtonGroup>
-                    <Dialog isOpen={dialogOpen} onClose={() => this.setState({ dialogOpen: false })}/>
+                    <Settings isOpen={dialogOpen} onClose={() => this.setState({ dialogOpen: false })}/>
                 </div>
             </Popover>
         )

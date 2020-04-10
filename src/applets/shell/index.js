@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Navbar, Alignment, Tabs, Tab } from '@blueprintjs/core';
 import { withRouter, Link, matchPath } from 'react-router-dom';
 
-import Clock from './clock/clock';
-import Login from './login/login';
-import UserSetting from './userSetting/user';
+import Clock from './clock';
+import Login from './login';
+import User from './user/';
 
 import HomeRoute from '../home/route';
 import ScoreboardRoute from '../scoreboard/route';
@@ -50,7 +50,7 @@ class Shell extends React.PureComponent {
                 <Navbar.Group align={Alignment.RIGHT}>
                     <Clock />
                     &nbsp;
-                    {auth ? <Login /> : <UserSetting />}
+                    {auth ? <Login /> : <User />}
                 </Navbar.Group>
             </Navbar>
         )

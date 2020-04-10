@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dialog } from '@blueprintjs/core';
 import PropTypes from 'prop-types';
 
-import Content from './content/content';
+import Content from './content';
 
 class SettingDialog extends React.PureComponent {
     render() {
