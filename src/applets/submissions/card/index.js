@@ -68,7 +68,9 @@ class Submission extends React.PureComponent {
                     &nbsp;
                     <Popover>
                         <Tooltip content={languageTooltipCard} position="bottom">
-                            <Tag large icon="code" minimal>{language[ext]}</Tag>
+                            <Tag large icon="code" minimal>
+                                {language[ext] || <span className="code-text">{ext}</span>}
+                            </Tag>
                         </Tooltip>
                     </Popover>
                     &nbsp;

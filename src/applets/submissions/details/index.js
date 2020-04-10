@@ -120,7 +120,10 @@ class SubmissionDetails extends React.PureComponent {
                         </Tag>
                         &nbsp;
                         <Tag large minimal icon="code">
-                            Language : {language[ext]} (<span className="code-text">.{ext}</span>)
+                            Language :
+                            {language[ext]
+                                ? <>{language[ext]} <span className="code-text">.{ext}</span></>
+                                : <span className="code-text"> {ext}</span>}
                         </Tag>
                         &nbsp;
                         <Tag large minimal icon="user">

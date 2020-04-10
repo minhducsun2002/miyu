@@ -12,7 +12,7 @@ export default ({ name, time, problems, ext, mode }, language = {}) => (
     + `\n|**Problem(s) (\`${problems.length}\`)**|${problems.map(prob => `\`${prob}\``).join(', ')}|`
 
     + `\n|**Allowed language(s) (\`${ext.length}\`)**|${
-        ext.map(ext => `**${language[ext.substr(1).toLowerCase()]}** (\`${ext.toLowerCase()}\`)`).join(', ')
+        ext.map(ext => `**${language[ext.substr(1).toLowerCase()] || `<unknown>`}** (\`${ext.toLowerCase()}\`)`).join(', ')
     }|`
 
 )

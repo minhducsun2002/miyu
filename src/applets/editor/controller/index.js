@@ -46,16 +46,15 @@ const Controller = ({
     // initially, not loading
 
     const probToRecord = prob => ({ value: prob, label: prob });
-    const extToRecord = (ext = '') => ({
-        // take care of cases where `ext` is undefined or not a string
-        value: ext,
-        label: (
-            <>
-                {language[ext.substr(1).toLowerCase()] + ' '}
-                (<span className="code-text">{ext.toLowerCase()}</span>)
-            </>
-        )
-    });
+    const extToRecord = (ext) => {
+        let _ = language[`${ext}`.substr(1).toLowerCase()],
+            e = <span className="code-text">{`${ext}`.toLowerCase()}</span>;
+        return {
+            // take care of cases where `ext` is undefined or not a string
+            value: ext,
+            label: (_ ? <>{_} ({e})</> : e)
+        }
+    };
 
     return wrapInFlexContainer([
         <Select
