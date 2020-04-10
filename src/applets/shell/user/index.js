@@ -5,6 +5,7 @@ import { Button, ButtonGroup, Popover, Intent, Callout } from '@blueprintjs/core
 import { updateUserState } from './../../../actions/creators.js';
 
 import Settings from './settings';
+import Version from './version';
 import logout from './api-logout';
 import session from '../login/api-session';
 
@@ -13,7 +14,7 @@ import './user.css';
 class UserSetting extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = { dialogOpen: false, trying: false };
+        this.state = { settingsOpen: false, versionOpen: false, trying: false };
     }
 
     logout = () => {
@@ -30,7 +31,7 @@ class UserSetting extends React.PureComponent {
     }
 
     render() {
-        const { username, id, isAdmin } = this.props, { dialogOpen, trying } = this.state;
+        const { username, id, isAdmin } = this.props, { settingsOpen, trying, versionOpen } = this.state;
         return (
             <Popover>
                 <Button
@@ -53,8 +54,13 @@ class UserSetting extends React.PureComponent {
                         <Button
                             loading={trying}
                             icon="cog"
-                            onClick={() => this.setState({ dialogOpen: true })}>
+                            onClick={() => this.setState({ settingsOpen: true })}>
                             Settings
+                            </Button>
+                        <Button
+                            icon="info-sign"
+                            onClick={() => this.setState({ versionOpen: true })}>
+                            About
                             </Button>
                         <Button
                             onClick={this.logout}
@@ -64,7 +70,8 @@ class UserSetting extends React.PureComponent {
                             Log out
                         </Button>
                     </ButtonGroup>
-                    <Settings isOpen={dialogOpen} onClose={() => this.setState({ dialogOpen: false })}/>
+                    <Settings isOpen={settingsOpen} onClose={() => this.setState({ settingsOpen: false })}/>
+                    <Version isOpen={versionOpen} onClose={() => this.setState({ versionOpen: false })}/>
                 </div>
             </Popover>
         )

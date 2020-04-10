@@ -70,5 +70,13 @@
       "last 1 safari version"
     ]
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/minhducsun2002/miyu"
+  },
+  "author": {
+    "name": "minhducsun2002",
+    "url": "https://github.com/minhducsun2002"
+  }
 }
