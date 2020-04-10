@@ -44,7 +44,6 @@
     "redux": "^4.0.4",
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
-    
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "1.4.1",
     "ts-pnp": "1.1.4",
@@ -56,9 +55,6 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "homepage": "/",
   "proxy": "http://localhost:3001",
@@ -74,9 +70,5 @@
       "last 1 safari version"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  }
+  "license": "MIT"
 }
