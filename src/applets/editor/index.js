@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FileDrop from 'react-file-drop';
 import LoadingOverlay from 'react-loading-overlay';
+import { Intent } from '@blueprintjs/core';
 
 import Editor from './editor/index';
 import Controller from './controller/index';
@@ -38,10 +39,13 @@ class Submit extends React.PureComponent {
             })
     }
 
-    processFile(file) {
+    processFile = (file) => {
         if (!(file instanceof Blob) && !(file instanceof File)) return;
-        if (file.size > MAX_FILE_SIZE_LIMIT_BYTES) return;
-            // TODO: raise error explicitly
+        if (file.size > MAX_FILE_SIZE_LIMIT_BYTES)
+            return this.props.toaster.show({
+                message: `Your file is too powerful. Maximum file size is ${MAX_FILE_SIZE_LIMIT_BYTES} bytes.`,
+                intent: Intent.DANGER
+            })
         reader.onload = () => {
             this.setState({ value: reader.result, loading: false })
         };
@@ -95,6 +99,7 @@ class Submit extends React.PureComponent {
     }
 }
 
-const mapStateToProps = ({ contest: { ext, problems } }, props) => Object.assign({}, { ext, problems }, props)
+const mapStateToProps = ({ contest: { ext, problems }, internal: { toaster } }, props) =>
+    Object.assign({}, { ext, problems, toaster }, props)
 
 export default connect(mapStateToProps)(Submit)
