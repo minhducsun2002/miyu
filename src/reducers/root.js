@@ -24,7 +24,9 @@ const initialState = {
         ext: [],
         // list of allowed languages, in source file extensions
         // example: ['.CPP']
-        mode: 'OI'
+        mode: 'OI',
+        // contest allows registration?
+        allowEveryoneReg: false
     },
     presets: {
         // overrideable configurations, like language mappings

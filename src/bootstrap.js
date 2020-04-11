@@ -21,7 +21,7 @@ class Bootstrapper extends React.PureComponent {
         Promise.all([
             fetch('/api/info')
                 .then(res => res.json())
-                .then(({ name, startTime, endTime, probList, allowedCodeExt, mode }) => ({
+                .then(({ name, startTime, endTime, probList, allowedCodeExt, mode, allowEveryoneReg }) => ({
                     name : `${name}`,
                     time : {
                         start : new Date(startTime),
@@ -29,7 +29,7 @@ class Bootstrapper extends React.PureComponent {
                     },
                     problems : probList,
                     ext : allowedCodeExt,
-                    mode : mode
+                    mode, allowEveryoneReg
                 }))
                 .then(updateContestMetadata)
                 .then(() => console.log(`Loaded contest details.`)),

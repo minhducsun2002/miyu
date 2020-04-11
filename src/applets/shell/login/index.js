@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Popover, InputGroup, Intent, Callout } from '@blueprintjs/core';
+import { Button, ButtonGroup, Popover, InputGroup, Intent, Callout } from '@blueprintjs/core';
 
 import { updateUserState } from './../../../actions/creators.js';
 
 import login from './api-login';
 import session from './api-session';
+import register from './api-user-post';
 
 import './login.css';
 
@@ -37,10 +38,29 @@ class Login extends React.PureComponent {
             .finally(() => this.setState({ trying: false }))
     }
 
+    register = () => {
+        const { toaster } = this.props;
+        // block all activity during registration
+        this.setState({ trying: true });
+        const { username, password } = this.state;
+        register(username, password)
+            .then(ok => {
+                if (!ok) throw Error(`Registration failed.`);
+                this.setState({ failed: null })
+                toaster.show({
+                    message: <>Successfully registered user <span className="code-text">{username}</span></>,
+                    intent: Intent.SUCCESS
+                })
+            })
+            .catch(err => this.setState({ failed: err.message }))            
+            .finally(() => this.setState({ trying: false }))
+    }
+
     resolveEnterKey = ({ keyCode }) => keyCode === 13 && this.login();
 
     render() {
         const { username, password, showPassword, trying, failed } = this.state
+        const { registrable } = this.props;
         const showPasswordButton =
             <Button
                 minimal
@@ -51,7 +71,7 @@ class Login extends React.PureComponent {
             // first element is target,
             // second element is content
             <Popover>
-                <Button large rightIcon="log-in" intent={Intent.SUCCESS}>
+                <Button large rightIcon="log-in" intent={Intent.SUCCESS} minimal>
                     Log in
                 </Button>
                 <div className="login-form-container">
@@ -83,6 +103,14 @@ class Login extends React.PureComponent {
                         rightElement={showPasswordButton}
                         onKeyDown={this.resolveEnterKey} />
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
+                    <Button
+                            disabled={!registrable}
+                            loading={trying}
+                            intent={Intent.PRIMARY}
+                            onClick={this.register}
+                            style={{ marginRight: 10 }}>
+                            Register
+                        </Button>
                         <Button
                             disabled={trying}
                             intent={Intent.DANGER}
@@ -104,7 +132,8 @@ class Login extends React.PureComponent {
     }
 }
 
-const mapStateToProps = ({ internal: { toaster } }, props) => Object.assign({}, { toaster }, props)
+const mapStateToProps = ({ internal: { toaster }, contest: { allowEveryoneReg } }, props) =>
+    Object.assign({}, { toaster, registrable: allowEveryoneReg }, props)
 
 const mapDispatchToProps = dispatch => ({
     setUserState : (userState) => dispatch(updateUserState(userState))
