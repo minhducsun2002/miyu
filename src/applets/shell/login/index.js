@@ -103,7 +103,7 @@ class Login extends React.PureComponent {
                         rightElement={showPasswordButton}
                         onKeyDown={this.resolveEnterKey} />
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                    <Button
+                        <Button
                             disabled={!registrable}
                             loading={trying}
                             intent={Intent.PRIMARY}
@@ -111,6 +111,7 @@ class Login extends React.PureComponent {
                             style={{ marginRight: 10 }}>
                             Register
                         </Button>
+                        <span style={{ flexGrow: 1 }}>&nbsp;</span>
                         <Button
                             disabled={trying}
                             intent={Intent.DANGER}
@@ -120,7 +121,7 @@ class Login extends React.PureComponent {
                         </Button>
                         <Button
                             loading={trying}
-                            intent={Intent.PRIMARY}
+                            intent={Intent.SUCCESS}
                             onClick={this.login}>
                             Log in
                         </Button>
