@@ -22,5 +22,6 @@
     "vhdl" : "vhdl",
     "v" : "verilog",
     "vh" : "verilog",
-    "yml" : "yaml"
+    "yml" : "yaml",
+    "py" : "python"
 }
