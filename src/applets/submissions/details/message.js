@@ -1,4 +1,8 @@
 import React from 'react';
-import { Pre } from '@blueprintjs/core';
+import { Pre, NonIdealState } from '@blueprintjs/core';
 
-export default ({ text }) => text ? <Pre>{text}</Pre> : <div>No global message.</div>
+export default ({ text }) => text
+    ? <Pre>{text}</Pre>
+    : <div>
+        <NonIdealState icon="tick" title="No message." />
+    </div>
